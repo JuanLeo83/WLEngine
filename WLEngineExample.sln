@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLEngineExample", "WLEngineExample\WLEngineExample.csproj", "{DC6F4B97-BBAA-438E-AFF4-0D31A4FF5FFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLEngine", "WLEngine\WLEngine.csproj", "{480622F7-271A-4CC4-AD0B-F5C98DEAC598}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC6F4B97-BBAA-438E-AFF4-0D31A4FF5FFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC6F4B97-BBAA-438E-AFF4-0D31A4FF5FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC6F4B97-BBAA-438E-AFF4-0D31A4FF5FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC6F4B97-BBAA-438E-AFF4-0D31A4FF5FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{480622F7-271A-4CC4-AD0B-F5C98DEAC598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{480622F7-271A-4CC4-AD0B-F5C98DEAC598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{480622F7-271A-4CC4-AD0B-F5C98DEAC598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{480622F7-271A-4CC4-AD0B-F5C98DEAC598}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
