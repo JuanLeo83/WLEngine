@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using WLEngine.Event;
+using WLEngine.Graphics.Sprite;
+using WLEngine.Graphics.Sprite.Animation;
 using WLEngine.Input;
 using WLEngine.Sound;
 using WLEngineExample.Screens.Gameplay;
@@ -17,11 +17,15 @@ public class Game1 : Game {
 
     private WlInputManager _inputManager;
     private GameplayInputMapper _inputMapper;
-    
+
     private WlSoundFxManager _wlSoundFxManager;
     private WlMusicManager _wlMusicManager;
 
     event EventHandler<WlGameEvent> OnEventNotification;
+
+    private Texture2D _texture;
+    private WlSprite _sprite;
+    private WlSpriteSheet _spriteSheet;
 
     public Game1() {
         _graphics = new GraphicsDeviceManager(this);
@@ -32,11 +36,11 @@ public class Game1 : Game {
     protected override void Initialize() {
         _inputMapper = new GameplayInputMapper();
         _inputManager = new WlInputManager(_inputMapper);
-        
+
         _wlSoundFxManager = new WlSoundFxManager(Content);
         _wlMusicManager = new WlMusicManager(Content);
         OnEventNotification += _currentGameState_OnEventNotification;
-        
+
         _inputMapper.updateExplosion(WlKey.KeyboardA);
 
         base.Initialize();
@@ -47,6 +51,8 @@ public class Game1 : Game {
 
         loadSound(new GameplayEvents.PlaySoundEvent(), "explosion");
         loadMusic(new GameplayEvents.PlayMusicEvent(), "musicJazz");
+
+        loadSpriteSheet();
     }
 
     protected override void Update(GameTime gameTime) {
@@ -55,9 +61,12 @@ public class Game1 : Game {
     }
 
     protected override void Draw(GameTime gameTime) {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Black);
 
-        // TODO: Add your drawing code here
+        _spriteBatch.Begin();
+        // _sprite.render(_spriteBatch, new Vector2(30, 30));
+        _spriteSheet.play(gameTime, _spriteBatch, new Vector2(30, 30));
+        _spriteBatch.End();
 
         base.Draw(gameTime);
     }
@@ -121,5 +130,119 @@ public class Game1 : Game {
 
     void loadMusic(WlGameEvent eventType, string musicName) {
         _wlMusicManager.register(eventType, musicName, true, 0.2f);
+    }
+
+    private void loadSpriteSheet() {
+        _texture = Content.Load<Texture2D>("Sprite/sprites");
+        _spriteSheet = new WlSpriteSheet()
+            .addAnimation("right", rightAnimation())
+            .addAnimation("left", leftAnimation())
+            .addAnimation("up", upAnimation())
+            .addAnimation("down", downAnimation());
+        _spriteSheet.setAnimation("right");
+    }
+
+    private WlAnimation rightAnimation() {
+        var animation = new WlAnimation();
+        animation
+            .addFrame(
+                new WlAnimationFrame(0, 100f,
+                    new WlSprite(_texture, 0, 2, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(1, 100f,
+                    new WlSprite(_texture, 0, 1, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(2, 100f,
+                    new WlSprite(_texture, 0, 0, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(3, 100f,
+                    new WlSprite(_texture, 0, 1, 16, 16)
+                )
+            );
+        return animation;
+    }
+
+    private WlAnimation leftAnimation() {
+        var animation = new WlAnimation();
+        animation
+            .addFrame(
+                new WlAnimationFrame(0, 20f,
+                    new WlSprite(_texture, 0, 2, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(1, 20f,
+                    new WlSprite(_texture, 1, 1, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(2, 20f,
+                    new WlSprite(_texture, 1, 0, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(3, 20f,
+                    new WlSprite(_texture, 1, 1, 16, 16)
+                )
+            );
+        return animation;
+    }
+
+    private WlAnimation upAnimation() {
+        var animation = new WlAnimation();
+        animation
+            .addFrame(
+                new WlAnimationFrame(0, 20f,
+                    new WlSprite(_texture, 0, 2, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(1, 20f,
+                    new WlSprite(_texture, 2, 1, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(2, 20f,
+                    new WlSprite(_texture, 2, 0, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(3, 20f,
+                    new WlSprite(_texture, 2, 1, 16, 16)
+                )
+            );
+        return animation;
+    }
+
+    private WlAnimation downAnimation() {
+        var animation = new WlAnimation();
+        animation
+            .addFrame(
+                new WlAnimationFrame(0, 20f,
+                    new WlSprite(_texture, 0, 2, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(1, 20f,
+                    new WlSprite(_texture, 3, 1, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(2, 20f,
+                    new WlSprite(_texture, 3, 0, 16, 16)
+                )
+            )
+            .addFrame(
+                new WlAnimationFrame(3, 20f,
+                    new WlSprite(_texture, 3, 1, 16, 16)
+                )
+            );
+        return animation;
     }
 }
